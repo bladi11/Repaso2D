@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repaso2D", "Repaso2D.csproj", "{C10A18C5-3D66-482B-8691-FE9B42081855}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C10A18C5-3D66-482B-8691-FE9B42081855}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C10A18C5-3D66-482B-8691-FE9B42081855}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C10A18C5-3D66-482B-8691-FE9B42081855}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C10A18C5-3D66-482B-8691-FE9B42081855}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F68C9047-0B0E-4B8D-B19D-8BCC9390C96B}
+	EndGlobalSection
+EndGlobal
