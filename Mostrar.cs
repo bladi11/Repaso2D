@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace Repaso2D
 {
-    class Vehiculo
+    class Mostrar
     {
+        public string nombre { get; set; }
         public string placa { get; set; }
-        public string marca { get; set; }
         public string color { get; set; }
-        public int modelo { get; set; }
-        public decimal precioKilometro { get; set; }
-
+        public DateTime devolucion { get; set; }
+        public decimal totalpagar { get; set; }
     }
 }
