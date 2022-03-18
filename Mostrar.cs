@@ -10,7 +10,7 @@ namespace Repaso2D
     {
         public string nombre { get; set; }
         public string placa { get; set; }
-        public string color { get; set; }
+        public string marca { get; set; }
         public DateTime devolucion { get; set; }
         public decimal totalpagar { get; set; }
     }

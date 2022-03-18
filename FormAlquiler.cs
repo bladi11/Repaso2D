@@ -17,12 +17,69 @@ namespace Repaso2D
         List<Alquiler> alquileres = new List<Alquiler>();
         List<Cliente> clientes = new List<Cliente>();           
         List<Vehiculo> vehiculos = new List<Vehiculo>();
-        List<Mostrar> mostrar = new List<Mostrar>();
+        List<Mostrar> resumen = new List<Mostrar>();
         public FormAlquiler()
         {
             InitializeComponent();
         }
 
+        private void CargarVehiculos()
+        {
+            FileStream stream = new FileStream("Vehiculos.txt", FileMode.Open, FileAccess.Read);
+            StreamReader reader = new StreamReader(stream);
+
+            while (reader.Peek() >-1)
+            {
+                //en el orden que estan en el archivo asi se tienen que agregar a la lista para evitar errores
+                Vehiculo vehiculo = new Vehiculo();
+                vehiculo.placa = reader.ReadLine();
+                vehiculo.marca = reader.ReadLine();
+                vehiculo.modelo = Convert.ToInt16(reader.ReadLine());
+                vehiculo.color = reader.ReadLine();
+                vehiculo.precioKilometro = Convert.ToDecimal(reader.ReadLine());
+
+                vehiculos.Add(vehiculo);
+            }
+            reader.Close();
+        }
+
+        private void CargarClientes()
+        {
+            FileStream stream = new FileStream("Clientes.txt", FileMode.Open, FileAccess.Read);
+            StreamReader reader = new StreamReader(stream);
+
+            while (reader.Peek() > -1)
+            {
+                //en el orden que estan en el archivo asi se tienen que agregar a la lista para evitar errores
+                Cliente cliente = new Cliente();
+                cliente.nit = reader.ReadLine();
+                cliente.nombre = reader.ReadLine();
+                cliente.direccion = reader.ReadLine();
+
+                clientes.Add(cliente);
+            }
+            reader.Close();
+        }
+
+        private void CargarAlquiler()
+        {
+            FileStream stream = new FileStream("Alquiler.txt", FileMode.Open, FileAccess.Read);
+            StreamReader reader = new StreamReader(stream);
+
+            while (reader.Peek() > -1)
+            {
+                //en el orden que estan en el archivo asi se tienen que agregar a la lista para evitar errores
+                Alquiler alquiler = new Alquiler();
+                alquiler.nit = reader.ReadLine();
+                alquiler.placa = reader.ReadLine();
+                alquiler.fechaAlquiler = Convert.ToDateTime(reader.ReadLine());
+                alquiler.fechaDevolucion = Convert.ToDateTime(reader.ReadLine());
+                alquiler.kilometrosRecorridos = Convert.ToInt16(reader.ReadLine());
+
+                alquileres.Add(alquiler);
+            }
+            reader.Close();
+        }
         private void GuardarAlquileres()
         {
             FileStream stream = new FileStream("Alquiler.txt", FileMode.OpenOrCreate, FileAccess.Write);
@@ -58,31 +115,44 @@ namespace Repaso2D
         {
             for (int i = 0; i< alquileres.Count; i++)  //buscara dentro de la lista de alquileres, alquiler por alquiler
             {
-                Mostrar mostrarTem = new Mostrar();
+                Mostrar dato = new Mostrar();
                 for (int j = 0; j< clientes.Count; j++) //buscara dentro de la lista de clientes si esta el nit que esta en la lista alquileres
                 {
                     if (alquileres[i].nit == clientes[j].nit)  //revisa si el nit que esta en la lista alquileres y clientes son iguales y si es asi los muestra
                     {
-                        mostrarTem.nombre = clientes[j].nombre;
+                        dato.nombre = clientes[j].nombre;
+                        dato.devolucion = alquileres[i].fechaDevolucion;
                     }
                 }
                 for (int k = 0; k < vehiculos.Count; k++) //buscara dentro de la lista de vehiculos si esta la placa que esta en la lista de alquileres
                 {
                     if (alquileres[i].placa == vehiculos[k].placa) //revisa si la placa que esta en la lista alquileres y vehiculos son iguales y si es asi los muestra
                     {
-                        mostrarTem.placa = vehiculos[k].placa;
-                        mostrarTem.color = vehiculos[k].color;
-                        mostrarTem.totalpagar = vehiculos[k].precioKilometro * alquileres[i].kilometrosRecorridos;
+                        dato.placa = vehiculos[k].placa;
+                        dato.marca = vehiculos[k].marca;
+                        dato.totalpagar = vehiculos[k].precioKilometro * alquileres[i].kilometrosRecorridos;
                     }
                 }
-                mostrar.Add(mostrarTem);
+                resumen.Add(dato);
 
-                dataGridView1.DataSource = null;
-                dataGridView1.Refresh();
+                dataGridViewResumen.DataSource = null;
+                dataGridViewResumen.Refresh();
 
-                dataGridView1.DataSource = mostrar;
-                dataGridView1.Refresh();
+                dataGridViewResumen.DataSource = resumen;
+                dataGridViewResumen.Refresh();
             }
+        }
+
+        private void FormAlquiler_Load(object sender, EventArgs e)
+        {
+            CargarClientes();
+            CargarVehiculos();
+            dataGridViewAutomoviles.DataSource = vehiculos;
+            dataGridViewAutomoviles.Refresh();
+
+            CargarAlquiler();
+            dataGridViewAlquileres.DataSource = alquileres;
+            dataGridViewAlquileres.Refresh();
         }
     }
 }
